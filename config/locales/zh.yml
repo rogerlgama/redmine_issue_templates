@@ -1,3 +1,4 @@
+# Modified by Roger Gama on 2026-11-21: custom usability edition based on upstream 1.2.1. See CREDITS.md and CHANGELOG.md.
 # Simplified Chinese strings go here for Rails i18n, based on file ja.yml
 zh:
   issue_templates: ISSUE模板管理
@@ -34,15 +35,12 @@ zh:
   erase_issue_subject_and_description: "点击清除主题及描述信息。"
   unused_tracker_at_this_project: "注意：当前项目中未定义可用的跟踪类型。请根据实际需要，重新配置ISSUE模板。"
   label_enabledshaing_help_message: "若选中，则当前ISSUE模板可以向下继承，与子项目共享使用。(您需在子项目中激活ISSUE模板继承选项便可使用。)"
-  label_should_replaced: "替换主题及描述信息"
-  label_should_replaced_help_message: "若选中，现有主题及描述信息将被自动清除，并替换为ISSUE模板中定义的内容。（默认不选中，则在现有内容后扩展模板内定义的信息。)"
   global_issue_templates: "全局ISSUE模板管理"
   no_issue_templates_for_this_redmine: "当前未定义全局ISSUE模板。请联系Redmine系统管理员。"
   only_admin_can_associate_global_template: "只有Redmine系统管理员才能在当前项目中关联全局ISSUE模板。"
   text_no_tracker_enabled_for_global: "未指定跟踪类型。\n在使用ISSUE模板前，请先指定模板适用的跟踪类型。"
   display_and_filter_issue_templates_in_dialog: "模板过滤器"
   label_filter_template: "模板过滤器"
-  label_msg_confirm_to_replace: "确认替换主题及描述信息？"
   label_apply_global_template_to_all_projects: "将全局问题模板应用于全部项目。"
   note_apply_global_template_to_all_projects_setting_enabled: "该全局问题模板通过插件设置配置后，应用于所有项目。"
   project_list_associated_this_template: "项目列表： (已应用于全部 %{all} 个项目中的 %{applied} 个)"

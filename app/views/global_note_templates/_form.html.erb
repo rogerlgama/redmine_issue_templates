@@ -1,3 +1,4 @@
+<%# Modified by Roger Gama on 2026-11-21: custom usability edition based on upstream 1.2.1. See CREDITS.md and CHANGELOG.md. %>
 <%= error_messages_for 'global_note_template' %>
 <div class='box tabular box-white'>
   <p><%= f.text_field :name, required: true, size: 80, label: l(:issue_template_name) %></p>
@@ -80,7 +81,7 @@
 <div class='box'>
   <% if apply_all_projects %>
       <p>
-        <i class='issue_template icon settings'></i>
+        <i class='issue_template icon-only settings'></i>
         <span class='issue_template help_content'>
           <%= l(:note_apply_global_template_to_all_projects_setting_enabled) %>
         </span>

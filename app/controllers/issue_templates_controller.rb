@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+# Modified by Roger Gama on 2026-11-21: custom usability edition based on upstream 1.2.1. See CREDITS.md and CHANGELOG.md.
+
 # noinspection ALL
 class IssueTemplatesController < ApplicationController
   layout 'base'
@@ -106,7 +108,7 @@ class IssueTemplatesController < ApplicationController
 
     render action: '_template_pulldown', layout: false,
            locals: { is_triggered_by: request.parameters[:is_triggered_by], grouped_options: @group,
-                     should_replaced: setting.should_replaced, default_template: @default_template }
+                     default_template: @default_template }
   end
 
   #

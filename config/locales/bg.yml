@@ -1,3 +1,4 @@
+# Modified by Roger Gama on 2026-11-21: custom usability edition based on upstream 1.2.1. See CREDITS.md and CHANGELOG.md.
 # Bulgarian translation
 bg:
   issue_templates: Шаблони
@@ -34,15 +35,12 @@ bg:
   erase_issue_subject_and_description: "Изчистване на заглавието и описанието."
   unused_tracker_at_this_project: "Забележка: Този тракер не е дефиниран за използване в този проект. Моля проверете и редактрирайте конфигурацията на шаблона, ако е необходимо."
   label_enabledshaing_help_message: "Ако е избрано, този шаблон може да се използва във вложените (child) проекти. (Също така, вие трябва да активирате опцията за наследяване във вложените проекти.)"
-  label_should_replaced: "Замяна на заглавието и описанието"
-  label_should_replaced_help_message: "Ако е избрано, съществуващото заглавие и описание се премахват и заменят с текстовете от шаблона. （По подразбиране не е избрано, и текстовете се добавят.)"
   global_issue_templates: "Глобални шаблони за задачи"
   no_issue_templates_for_this_redmine: "Глобални шаблони не са дефинирани."
   only_admin_can_associate_global_template: "Само администраторите на Redmine могат да асоциират глобални шаблони с с тожи проект."
   text_no_tracker_enabled_for_global: "Не са дефинирани тракери.\nПърво дефинирайте тракери, понеже шаблоните се асоциират с тракери."
   display_and_filter_issue_templates_in_dialog: "Преглед"
   label_filter_template: "Филтриране на шаблоните"
-  label_msg_confirm_to_replace: "Желаете да замените заглавието и описанието?"
   label_apply_global_template_to_all_projects: "Прилагане на глобалните шаблони към всички проекти."
   note_apply_global_template_to_all_projects_setting_enabled: "Този глобален шаблон е приложен към всички проекти в конфигурацията на плъгина."
   project_list_associated_this_template: "Проекти:  (приложени: %{applied} от %{all})"
@@ -56,7 +54,6 @@ bg:
   orphaned_templates: "Шаблони без тракер"
   orphaned_template: "Шаблон без тракер"
   label_template_applied: "Шаблонът беше приложен. Можете да възстановите старото състояние, като натиснете връзката 'Отмяна'."
-  label_hide_confirm_dialog_in_the_future: "Без потвърждение за в бъдеще, направо прилагане на шаблона."
   label_template_for_note: "Шаблон за коментар"
   label_use_template_when_edit: "Използване на шаблони когато се редактират задачи"
   note_template: "Шаблон за коментар"

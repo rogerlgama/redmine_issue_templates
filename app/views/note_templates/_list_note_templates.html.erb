@@ -1,3 +1,4 @@
+<%# Modified by Roger Gama on 2026-11-21: custom usability edition based on upstream 1.2.1. See CREDITS.md and CHANGELOG.md. %>
 <table class='list template_list'>
   <thead>
   <tr>
@@ -14,7 +15,7 @@
       </td>
       <td>
         <div class='template_tooltip_wrapper'>
-          <a class='icon template_tooltip' href='#' title='<%= l(:label_preview) %>'></a>
+          <a class='icon-only template_tooltip' href='#' title='<%= l(:label_preview) %>'></a>
           <div class='wiki template_tooltip_body'>
             <span class='title'><%= template.name %></span>
             <%= textilizable(template.description) %>
@@ -27,7 +28,7 @@
       <td>
         <a data-note-template-id='<%= template.id %>'
            onclick='noteTemplateNS.applyNoteTemplate(this)'
-           class='icon icon-test template-update-link'></a>
+           class='icon-only icon-test template-update-link'></a>
       </td>
     </tr>
 <% end %>
@@ -38,7 +39,7 @@
       </td>
       <td>
         <div class='template_tooltip_wrapper'>
-          <a class='icon template_tooltip' href='#' title='<%= l(:label_preview) %>'></a>
+          <a class='icon-only template_tooltip' href='#' title='<%= l(:label_preview) %>'></a>
           <div class='wiki template_tooltip_body'>
             <span class='title'><%= template.name %></span>
             <%= textilizable(template.description) %>
@@ -51,7 +52,7 @@
       <td>
         <a data-note-template-id='<%= template.id %>'
            onclick='noteTemplateNS.applyNoteTemplate(this)'
-           class='icon icon-test template-global template-update-link'></a>
+           class='icon-only icon-test template-global template-update-link'></a>
       </td>
     </tr>
 <% end %>

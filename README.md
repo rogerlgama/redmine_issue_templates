@@ -1,229 +1,85 @@
-# Redmine Issue Templates Plugin
+# Redmine Issue Templates — versão personalizada
 
-[![Plugin info at redmine.org](https://img.shields.io/badge/Redmine-plugin-green.svg?)](http://www.redmine.org/plugins/redmine_issue_templates)
-[![Sider](https://img.shields.io/badge/Special%20Thanks!-Sider-blue.svg?)](https://sider.review/features)
+**Versão: 1.2.1.5** · **Manutenção desta edição: [Roger Gama](https://github.com/rogerlgama)**
 
-Plugin to generate and use issue templates for each project to assist issue
-creation.
+Edição personalizada do [Redmine Issue Templates](https://github.com/agileware-jp/redmine_issue_templates),
+baseada na tag oficial **1.2.1**, commit `94a56c1100014db5d5016dfc50ff7bdf5ae0fb47`.
+Mantém a autoria, os avisos e a licença originais. **Não é uma versão oficial da Agileware.**
 
-## Supported browsers
+| Referência | Responsável / endereço |
+|---|---|
+| Autoria original | Akiko Takano e colaboradores; Agileware Inc. no registro do plugin |
+| Projeto original | https://github.com/agileware-jp/redmine_issue_templates |
+| Manutenção e melhorias desta edição | Roger Gama |
+| Código desta edição | https://github.com/rogerlgama/redmine_issue_templates |
+| Versão personalizada | 1.2.1.5 |
+| Licença | GNU GPL v2 ou posterior, conforme os avisos originais |
 
-The current version of Chrome, Firefox, and Microsoft Edge (Chromium version).
+## Melhorias de usabilidade
 
-## Useful links
+- Aplicação de um modelo substitui integralmente assunto e descrição, sem concatenação.
+- Trocar o Tipo durante a criação carrega o modelo padrão, quando houver.
+- Sem modelo padrão selecionado, assunto e descrição ficam vazios, mesmo que existam várias opções.
+- Sem modelos disponíveis, os campos também são limpos.
+- Removidas a opção “Substituir assunto e descrição” (global e por projeto), a confirmação e o link “Reverter”.
+- Restaurada a visibilidade dos ícones “Corpo da tarefa” e “Aplicar” no Redmine 6, seguindo a correção upstream #116.
+- Mantidos o seletor de modelos, a pré-visualização e o link “Limpar assunto e descrição”.
 
-* Repository and Issues: <https://github.com/agileware-jp/redmine_issue_templates>
-* Redmine Plugin List: <https://www.redmine.org/plugins/redmine_issue_templates>
-* Wiki: <https://github.com/akiko-pusu/redmine_issue_templates/wiki>
+A aplicação de outro modelo substitui também o texto editado manualmente. A alteração de Tipo para
+um tipo sem modelo padrão limpa o texto anterior, conforme o comportamento desta edição.
 
-If you have any feature requests or bug reports, please use [GitHub issues](<https://github.com/agileware-jp/redmine_issue_templates/issues>).
+## Instalação e atualização
 
-## Usage
+O diretório do plugin deve continuar com o nome **`redmine_issue_templates`**.
+Esta edição substitui o plugin existente e não deve ser instalada em paralelo com ele.
 
-### 1.) Plugin installation
+### Atualização a partir da versão 1.2.1 ou das edições 1.2.1.1–1.2.1.4
 
-* Copy the plugin directory into the `$REDMINE_ROOT/plugins` directory. Please
-    note that plugin's folder name should be `redmine_issue_templates`. If
-    changed, some migration tasks may fail.
-* Run the migration task.
+1. Faça backup da pasta atual e do banco de dados.
+2. Pare o Redmine e substitua `plugins/redmine_issue_templates` pela pasta contida no ZIP.
+3. Remova a cópia antiga em `public/plugin_assets/redmine_issue_templates`, se existir.
+4. Reinicie o Redmine e recarregue o navegador com **Ctrl+F5**.
+5. Em Administração → Plugins, confira a identificação da versão personalizada **1.2.1.5**.
 
-```bash
-rails redmine:plugins:migrate RAILS_ENV=production
-```
+**A atualização não adiciona migrations** em relação à 1.2.1. Não é necessário executar migrations
+para instalar estas melhorias sobre uma instalação existente que já tenha migrado o plugin original.
+O JavaScript compilado está incluído: Node.js não é necessário no servidor de produção.
 
-* (Re)Start Redmine.
+### Primeira instalação do Issue Templates
 
-#### Troubleshoot for bundle intall and startup problem
-
-This plugin repository includes some test code and gem settings. If you have
-some troubles related to `bundle install`, please try `--without` option.
-
-```bash
-bundle install --without test
-```
-
-
-### 2.) Uninstall
-
-**Uninstall:**
-
-```bash
-rails redmine:plugins:migrate NAME=redmine_issue_templates VERSION=0 RAILS_ENV=production
-```
-
-**Re-install:**
+O plugin original contém tabelas próprias. Em uma instalação nova, execute suas migrations:
 
 ```bash
-rails redmine:plugins:migrate NAME=redmine_issue_templates RAILS_ENV=production
+bundle exec rake redmine:plugins:migrate NAME=redmine_issue_templates RAILS_ENV=production
 ```
 
-#### When migration error
+Reinicie o Redmine, habilite o módulo Modelos de tarefas nos projetos e configure as permissões.
+Veja também as [instruções detalhadas](LEIA-ME-ATUALIZACAO.md) e o [README original](README.upstream.md).
 
-If the migration is cancelled with error like following message for the first time you try to install this plugin:
+## Validação
 
-> Caused by: Mysql2::Error: Table 'DATABASE_FOR_REDMINE.issue_templates' doesn't exist
-
-You can fix this error to remove migration records related to this plugin from `shema_migrations` table.
-
-If you can access and select database for Redmine, try this command:
-
-```sql
-select * from schema_migrations where version like '%redmine_issue_templates%';
-```
-
-If there are any records shown like this and there is no table named 'issue_templates', your installation has been in incomplete state.
-
-```sql
-1-redmine_issue_templates
-2-redmine_issue_templates
-```
-
-So, you should better run the uninstall task first, and retry the migration.
-
-**Related issues:**
-
-* <https://github.com/akiko-pusu/redmine_issue_templates/issues/285>
-* <https://github.com/akiko-pusu/redmine_issue_templates/issues/169>
-* <https://github.com/akiko-pusu/redmine_issue_templates/issues/82#issuecomment-302000185>
-
-### 3.) Required Settings
-
-1. Login to your Redmine install as an Administrator
-2. Enable the permissions for your Roles:
-
-    * Show issue templates: User can show issue templates and use templates when creating/updating issues.
-    * Edit issue templates: User can create/update/activate templates for each project.
-    * Manage issue templates: User can edit help message of templates for each project.
-
-3. Enable the module "Issue Template" on the project setting page.
-4. The link to the plugin should appear on that project's navigation.
-
-### 4.) Rake Tasks
-
-You can see the rake tasks, related to this plugin, with `(bundle exec)` `rake -T`.
-
-Exp.
+Foram aprovados **29 testes JavaScript**, executados com adaptadores DOM/HTTP simulados:
 
 ```bash
-# Apply inhelit template setting to child projects
-$ rake redmine_issue_templates:apply_inhelit_template_to_child_projects[project_id]
-
-# Run test for redmine_issue_template plugin
-$ rake redmine_issue_templates:default
-
-# Run spec for redmine_issue_template plugin
-$ rake redmine_issue_templates:spec
-
-# Run tests
-$ rake redmine_issue_templates:test
-
-# Unapply inhelit template setting from child projects
-$ rake redmine_issue_templates:unapply_inhelit_template_from_child_projects[project_id]
-
-# Generate YARD Documentation for redmine_issue_template plugin
-$ rake redmine_issue_templates:yardoc
+node --test test/javascript/automatic_templates.test.cjs
 ```
 
-You can apply/unapply inherit templates for all the children projects.
+A edição foi preparada para uso no Redmine 6.0.6. Os testes RSpec e a validação integrada com
+Ruby/Rails não foram executados no ambiente de preparação. Confira [VALIDACAO.txt](VALIDACAO.txt)
+e valide no seu Redmine de testes antes de atualizar a produção.
 
-```bash
-rake redmine_issue_templates:apply_inhelit_template_to_child_projects[project_id]      # Apply inhelit template setting to child projects
-rake redmine_issue_templates:unapply_inhelit_template_from_child_projects[project_id]  # Unapply inhelit template setting from child projects
-```
+## Histórico, distribuição e contribuição
 
-If you want to apply inherit templates setting all the children projects of `project_id: 1` (as parent project), please run rake command like this:
+- [Histórico das alterações](CHANGELOG.md)
+- [Créditos e procedência](CREDITS.md)
+- [Releases desta edição](https://github.com/rogerlgama/redmine_issue_templates/releases)
+- [Issues desta edição](https://github.com/rogerlgama/redmine_issue_templates/issues)
 
-```bash
-rake redmine_issue_templates:apply_inhelit_template_to_child_projects[1]
-```
+As melhorias desta edição são mantidas por Roger Gama. Correções já existentes no projeto original
+são identificadas como tais no histórico. Propostas para o upstream devem considerar as alterações
+que já foram incorporadas por seus mantenedores.
 
-### 5.) Testing
+## Licença
 
-Please see `.circleci/config.yml` for more details.
-
-```bash
-% cd REDMINE_ROOT_DIR
-% cp plugins/redmine_issue_templates/Gemfile.local plugins/redmine_issue_templates/Gemfile
-% bundle install --with test
-% export RAILS_ENV=test
-% bundle exec ruby -I"lib:test" -I plugins/redmine_issue_templates/test plugins/redmine_issue_templates/test/functional/issue_templates_controller_test.rb
-```
-
-or
-
-```bash
-% bundle exec rails redmine_issue_templates:test
-```
-
-#### Run spec
-
-Please see .circleci/config.yml for more details.
-
-```bash
-% cd REDMINE_ROOT_DIR
-% cp plugins/redmine_issue_templates/Gemfile.local plugins/redmine_issue_templates/Gemfile
-% bundle install --with test
-% export RAILS_ENV=test
-% bundle exec rspec -I plugins/redmine_issue_templates/spec --format documentation plugins/redmine_issue_templates/spec/
-```
-
-By default, `headless` is added as an option. If you set the environment variable
-`HEADLESS` to `0`, `headless` will be removed.
-
-```bash
-% HEADLESS=0 bundle exec rspec -I plugins/redmine_issue_templates/spec --format documentation plugins/redmine_issue_templates/spec/
-```
-
-### 6.) Build scripts
-
-required
-
-* nodejs: 18.16.0
-
-```bash
-% npm install
-% npm run build
-```
-
-#### Serve with vite-dev-server
-
-```bash
-% npm run dev
-% REDMINE_ISSUE_TEMPLATE_VITE_SERVE_URL=http://localhost:5244 bundle exec rails server
-```
-
-### Changelog
-
-For detailed list of changes please see: [CHANGELOG.md](CHANGELOG.md)
-
-### Contributing
-
-Pull requests, reporting issues, stars are always welcome!
-
-We are always thrilled to receive pull requests, and do our best to process them as fast as possible.
-If you find some type, please create pull request. Do it! We will appreciate it.
-
-* Fork it!
-* Create your feature branch: git checkout -b my-new-feature
-* Commit your changes: git commit -am 'Add some feature'
-* Push to the branch: git push origin my-new-feature
-* Submit a pull request :D
-
-### Language and I18n contributors
-
-* Brazilian: Adriano Ceccarelli / Pedro Moritz de Carvalho Neto
-* Korean: Jaebok Oh
-* Chinese: Steven Wong, vongola12324 (zh-TW)
-* Bulgarian: Ivan Cenov
-* Russian: Denny Brain, danaivehr
-* German: Terence Miller, Christian Friebel and anonymous contributor
-* French: Anonymous one
-* Serbian: Miodrag Milic
-* Polish: Paweł Budikom and Krzysztof Wosinski
-* Spanish: Andres Arias
-* Italian: Luca Lesinigo
-* Danish: AThomsen
-
-### License
-
-This software is licensed under the GNU GPL v2.
+Preservada a licença do projeto original e seus avisos de copyright. Consulte [LICENSE.txt](LICENSE.txt)
+e os cabeçalhos dos arquivos. As alterações desta edição são distribuídas sob os mesmos termos.

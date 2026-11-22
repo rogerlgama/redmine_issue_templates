@@ -1,3 +1,4 @@
+<%# Modified by Roger Gama on 2026-11-21: custom usability edition based on upstream 1.2.1. See CREDITS.md and CHANGELOG.md. %>
 <% return '' unless @issue.project.module_enabled? :issue_templates %>
 <% return '' unless User.current.allowed_to?(:show_issue_templates, @issue.project)  %>
 <div id='template_area' style='display: none;'>
@@ -22,12 +23,6 @@
     <a class='icon icon-erase' title='<%= l(:erase_issue_subject_and_description, default: 'Erase') %>' id='erase_template'>
       <%= l(:erase_issue_subject_and_description, default: 'Erase') %>
     </a>
-    <a class='icon icon-reload disabled' title='<%= l(:revert_before_applying_template, default: 'Revert') %>'
-       id='revert_template' disabled='disabled'>
-      <%= l(:revert_before_applying_template, default: 'Revert') %>
-    </a>
-    <span id='original_subject' style='display: none;'></span>
-    <span id='original_description' style='display: none;'></span>
     <span id='template_status-area'></span>
   </p>
 
@@ -49,22 +44,6 @@
     </div>
   </div>
 
-  <div id='issue_template_confirm_to_replace_dialog' class='overlay'>
-    <a id='issue_template_confirm_to_replace_dialog_cancel' class='cancel' target='#'></a>
-    <div class='popup small'>
-      <p><b><%=h l(:label_msg_confirm_to_replace) %></b></p>
-      <p><input type='checkbox' id='issue_template_confirm_to_replace_hide_dialog'>
-        <%= h l(:label_hide_confirm_dialog_in_the_future,
-              default: 'Hide this confirmation in the future, just overwrite.') %>
-      </p>
-      <div class='footer_wrapper'>
-        <div class='popup_footer' style='text-align: center;'>
-          <i id='overwrite_yes' class='overwrite_confirm_btn'><%=h l(:general_text_Yes) %></i>
-          <i id='overwrite_no' class='overwrite_confirm_btn'><%=h l(:general_text_No) %></i>
-        </div>
-      </div>
-    </div>
-  </div>
   <!-- dialog box -->
 
   <div class='wiki' id='template_help_content' style='display: none;'>
@@ -78,10 +57,7 @@
       pulldownUrl: '<%= pulldown_url %>',
       isTriggeredBy: '<%= is_triggered_by %>',
       loadUrl: '<%= url_for(controller: 'issue_templates', action: 'load', project_id: project_id, is_triggered_by: is_triggered_by) %>',
-      shouldReplaced: '<%= setting.should_replaced %>',
-      generalTextYes: '<%=h l(:general_text_Yes) %>',
-      generalTextNo : '<%=h l(:general_text_No) %>',
-      confirmMessage: '<%=h l(:label_template_applied, default: "Issue template is applied. You can revert with click 'Revert' link.") %>'
+      confirmMessage: '<%=h l(:label_template_applied_automatically, default: "Issue template applied.") %>'
     }
 
     var templateNS = templateNS || new ISSUE_TEMPLATE(templateConfig)
@@ -100,11 +76,6 @@
       let templateListTitle = '<%= "#{l(:issue_template)}: #{@issue.tracker.name}".html_safe %>'
 
       templateNS.openDialog(templateListUrl, templateListTitle)
-    })
-
-    // revert template
-    document.getElementById('revert_template').addEventListener('click', (event) => {
-      templateNS.revertAppliedTemplate()
     })
 
     document.getElementById('erase_template').addEventListener('click', (event) => {

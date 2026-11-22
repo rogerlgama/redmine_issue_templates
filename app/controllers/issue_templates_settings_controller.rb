@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+# Modified by Roger Gama on 2026-11-21: custom usability edition based on upstream 1.2.1. See CREDITS.md and CHANGELOG.md.
+
 # noinspection RubocopInspection
 class IssueTemplatesSettingsController < ApplicationController
   before_action :find_project, :find_user
@@ -45,7 +47,6 @@ class IssueTemplatesSettingsController < ApplicationController
     attribute = params[:settings]
     issue_templates_setting.update(enabled: attribute[:enabled],
                                    help_message: attribute[:help_message],
-                                   inherit_templates: attribute[:inherit_templates],
-                                   should_replaced: attribute[:should_replaced])
+                                   inherit_templates: attribute[:inherit_templates])
   end
 end

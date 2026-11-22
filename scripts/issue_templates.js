@@ -1,3 +1,4 @@
+/*! Modified by Roger Gama on 2026-11-21: custom usability edition based on upstream 1.2.1. See CREDITS.md and CHANGELOG.md. */
 /*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
@@ -21,9 +22,6 @@ class ISSUE_TEMPLATE {
     this.pulldownUrl = config.pulldownUrl;
     this.loadUrl = config.loadUrl;
     this.confirmMsg = config.confirmMessage;
-    this.shouldReplaced = config.shouldReplaced;
-    this.generalTextYes = config.generalTextYes;
-    this.generalTextNo = config.generalTextNo;
     this.isTriggeredBy = config.isTriggeredBy;
   }
   clearValue(id) {
@@ -60,31 +58,6 @@ class ISSUE_TEMPLATE {
       });
     });
   }
-  revertAppliedTemplate() {
-    const issueSubject = document.getElementById('issue_subject');
-    const oldSubject = document.getElementById('original_subject');
-
-    const issueDescription = document.getElementById('issue_description');
-    const oldDescription = document.getElementById('original_description');
-    const ns = this;
-
-    issueSubject.value = ns.escapeHTML(oldSubject.textContent);
-
-    if (issueDescription != null) {
-      issueDescription.value = ns.escapeHTML(oldDescription.textContent);
-    }
-
-    try {
-      if (CKEDITOR.instances.issue_description) {
-        CKEDITOR.instances.issue_description.setData(ns.escapeHTML(oldDescription.text()));
-      }
-    } catch (e) {
-      // do nothing.
-    }
-    oldDescription.textContent = '';
-    oldDescription.textContent = '';
-    document.getElementById('revert_template').classList.add('disabled');
-  }
   loadTemplate() {
     const selectedTemplate = document.getElementById('issue_template');
     const ns = this;
@@ -117,106 +90,31 @@ class ISSUE_TEMPLATE {
       obj.description = (obj.description == null) ? '' : obj.description;
       obj.issue_title = (obj.issue_title == null) ? '' : obj.issue_title;
 
-      const issueSubject = document.getElementById('issue_subject');
-      const issueDescription = document.getElementById('issue_description');
-
       this.loadedTemplate = obj;
 
-      if (ns.shouldReplaced === 'true' && ((issueDescription !== null && issueDescription.value !== '') || issueSubject.value !== '')) {
-        if (obj.description !== '' || obj.issue_title !== '') {
-          const hideConfirmFlag = ns.hideOverwiteConfirm();
-          if (hideConfirmFlag === false) {
-            return ns.confirmToReplaceContent(obj);
-          }
-        }
-      }
       ns.replaceTemplateValue(obj);
     });
   }
   replaceTemplateValue(obj) {
-    const ns = this;
-
-    let oldVal = '';
-    let oldSubj = '';
     const issueSubject = document.getElementById('issue_subject');
     const issueDescription = document.getElementById('issue_description');
 
+    // Applying a model always replaces both fields, including empty values.
     if (issueDescription != null) {
-      const originalDescription = document.getElementById('original_description');
-      if (issueDescription.value !== '' && ns.shouldReplaced === 'false') {
-        oldVal = issueDescription.value + '\n\n';
-      }
-
-      originalDescription.textContent = issueDescription.value;
-
-      issueDescription.getAttribute('original_description', issueDescription.value);
-      if (oldVal.replace(/(?:\r\n|\r|\n)/g, '').trim() !== obj.description.replace(/(?:\r\n|\r|\n)/g, '').trim()) {
-        issueDescription.value = oldVal + obj.description;
-      }
+      issueDescription.value = obj.description ?? '';
     }
-
-    const originalSubject = document.getElementById('original_subject');
-    if (issueSubject.value !== '' && ns.shouldReplaced === 'false') {
-      oldSubj = issueSubject.value + ' ';
-    }
-    originalSubject.textContent = issueSubject.value;
-
-    issueSubject.setAttribute('original_title', issueSubject.value);
-    if (oldSubj.trim() !== obj.issue_title.trim()) {
-      issueSubject.value = oldSubj + obj.issue_title;
-    }
+    issueSubject.value = obj.issue_title ?? '';
 
     try {
       if (CKEDITOR.instances.issue_description) {
-        CKEDITOR.instances.issue_description.setData(oldVal + obj.description);
+        CKEDITOR.instances.issue_description.setData(obj.description ?? '');
       }
     } catch (e) {
-      // do nothing.
+      // CKEditor is optional.
     }
-    // show message just after default template loaded.
-    if (ns.confirmMsg && ns.shouldReplaced) {
-      ns.showLoadedMessage(issueDescription);
-    }
-
-    if (originalSubject.textContent.length > 0) {
-      document.getElementById('revert_template').classList.remove('disabled');
-    }
-
-    ns.setRelatedLink(obj);
-    ns.builtinFields(obj);
-    ns.confirmToReplace = true;
-  }
-  confirmToReplaceContent(obj) {
-    const ns = this;
-    const dialog = document.getElementById('issue_template_confirm_to_replace_dialog');
-    dialog.style.visibility = 'visible';
-    dialog.classList.add('active');
-
-    document.getElementById('overwrite_yes').addEventListener('click', () => {
-      if (document.getElementById('issue_template_confirm_to_replace_hide_dialog').checked) {
-        // NOTE: Use document.cookie because Redmine itself does not use jquery.cookie.js.
-        document.cookie = 'issue_template_confirm_to_replace_hide_dialog=1';
-      } else {
-        document.cookie = 'issue_template_confirm_to_replace_hide_dialog=0';
-      }
-      dialog.classList.remove('active');
-      ns.replaceTemplateValue(obj);
-    });
-
-    document.getElementById('overwrite_no').addEventListener('click', () => {
-      if (document.getElementById('issue_template_confirm_to_replace_hide_dialog').checked) {
-        // NOTE: Use document.cookie because Redmine itself does not use jquery.cookie.js.
-        document.cookie = 'issue_template_confirm_to_replace_hide_dialog=1';
-      } else {
-        document.cookie = 'issue_template_confirm_to_replace_hide_dialog=0';
-      }
-      dialog.classList.remove('active');
-    });
-
-    document.getElementById('issue_template_confirm_to_replace_dialog_cancel')
-      .addEventListener('click', () => {
-        dialog.classList.remove('active');
-      });
+    if (this.confirmMsg) this.showLoadedMessage();
+    this.setRelatedLink(obj);
+    this.builtinFields(obj);
   }
   showLoadedMessage() {
     const ns = this;
@@ -243,22 +141,24 @@ class ISSUE_TEMPLATE {
     }
 
     axios.post(ns.pulldownUrl, params).then(({ data }) => {
-      document.getElementById('issue_template').innerHTML = data;
+      const selectedTemplate = document.getElementById('issue_template');
+      selectedTemplate.innerHTML = data;
       const length = document.querySelectorAll('#issue_template > optgroup > option').length;
       if (length < 1) {
         document.getElementById('template_area').style.display = 'none';
-        if (ns.isTriggeredBy != null && this.isTriggeredBy === 'issue_tracker_id') {
-          if (document.querySelectorAll('#issue-form.new_issue').length > 0 && ns.should_replaced === true) {
-            if (typeof ns !== 'undefined') {
-              ns.eraseSubjectAndDescription();
-            }
-          }
-        }
       } else {
         document.getElementById('template_area').style.display = 'inline';
       }
+      // A tracker may offer several models without selecting a default. Clear
+      // the previous model whenever the refreshed selector is blank; otherwise
+      // the change event below applies the selected default as usual.
+      if (ns.isTriggeredBy === 'issue_tracker_id' &&
+          document.querySelectorAll('#issue-form.new_issue').length > 0 &&
+          selectedTemplate.value === '') {
+        ns.eraseSubjectAndDescription();
+      }
       const changeEvent = new Event('change');
-      document.getElementById('issue_template').dispatchEvent(changeEvent);
+      selectedTemplate.dispatchEvent(changeEvent);
     });
   }
   setRelatedLink(obj) {
@@ -271,34 +171,9 @@ class ISSUE_TEMPLATE {
       relatedLink.style.display = 'none';
     }
   }
-  escapeHTML(val) {
-    const div = document.createElement('div');
-    div.textContent = val;
-    return div.textContent;
-  }
-  unescapeHTML(val) {
-    const div = document.createElement('div');
-    div.innerHTML = val;
-    return div.innerHTML;
-  }
   replaceCkeContent() {
     const element = document.getElementById('issue_description');
     return CKEDITOR.instances.issue_description.setData(element.value);
-  }
-  hideOverwiteConfirm() {
-    const cookieArray = [];
-    if (document.cookie !== '') {
-      const tmp = document.cookie.split('; ');
-      for (let i = 0; i < tmp.length; i++) {
-        const data = tmp[i].split('=');
-        cookieArray[data[0]] = decodeURIComponent(data[1]);
-      }
-    }
-    const confirmationCookie = cookieArray['issue_template_confirm_to_replace_hide_dialog'];
-    if (confirmationCookie == null || parseInt(confirmationCookie) === 0) {
-      return false;
-    }
-    return true;
   }
   // support built-in field update
   builtinFields(template) {

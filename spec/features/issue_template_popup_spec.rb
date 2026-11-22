@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+# Modified by Roger Gama on 2026-11-21: custom usability edition based on upstream 1.2.1. See CREDITS.md and CHANGELOG.md.
+
 require_relative '../spec_helper'
 require_relative '../rails_helper'
 require_relative '../support/login_helper'
@@ -8,7 +10,7 @@ RSpec.configure do |c|
   c.include LoginHelper
 end
 
-feature 'Confirm dialog before overwrite description', js: true do
+feature 'Apply issue templates without confirmation', js: true do
   background(:all) do
     Redmine::Plugin.register(:redmine_issue_templates) do
       settings partial: 'settings/redmine_issue_templates',
@@ -60,77 +62,60 @@ feature 'Confirm dialog before overwrite description', js: true do
     expect(related_link['href']).to eq 'http://example.com/template/wiki#usage'
   end
 
+  scenario 'Preview and apply remain visible after clearing the fields' do
+    visit_new_issue(user)
+    first_target.select_option
+    wait_for_ajax
+    page.find('#erase_template').click
+    expect(issue_subject.value).to eq ''
+    expect(issue_description.value).to eq ''
+    page.find('#link_template_dialog').click
+    wait_for_ajax
+    preview = page.first('#filtered_templates_list a.icon-only.template_tooltip')
+    apply = page.first('#filtered_templates_list i.icon-only.template-update-link')
+    expect(preview).to be_visible
+    expect(apply).to be_visible
+    preview.hover
+    expect(page.first('#filtered_templates_list .template_tooltip_body')).to be_visible
+    apply.click
+    wait_for_ajax
+    expect(issue_subject.value).to eq first_template.issue_title
+    expect(issue_description.value).to eq first_template.description
+  end
+
   context 'Has default template' do
     before do
       first_template.is_default = true
       first_template.save
     end
 
-    context 'Overwite option is not activated' do
-      scenario 'Template pulldown is shown when new issue and default is loaded.' do
-        visit_new_issue(user)
-        wait_for_ajax
-        expect(page).to have_selector('div#template_area select#issue_template')
-        expect(issue_description.value).not_to eq ''
-        expect(issue_subject.value).not_to eq ''
-        expect(issue_description.value).to eq first_template.description
-        expect(issue_subject.value).to eq first_template.issue_title
-      end
-
-      scenario 'Text appended.' do
-        visit_new_issue(user)
-        wait_for_ajax
-        expect(page).to have_selector('div#template_area select#issue_template')
-        second_target.select_option
-        wait_for_ajax
-        expect(page).not_to have_selector('#issue_template_confirm_to_replace_dialog')
-        expect(issue_description.value).not_to eq first_template.description
-        expect(issue_subject.value).not_to eq first_template.issue_title
-        expect(issue_subject.value).to eq "#{first_template.issue_title} #{second_template.issue_title}"
-        expect(issue_description.value).to eq "#{first_template.description}\n\n#{second_template.description}"
-      end
-
-      context 'Overwite option is activated' do
+    [false, true].each do |legacy_replace_setting|
+      context "Legacy project replacement value: #{legacy_replace_setting}" do
         before do
-          setting = IssueTemplateSetting.find_or_create(project.id)
-          setting.update_attribute(:should_replaced, true)
+          IssueTemplateSetting.find_or_create(project.id).update!(should_replaced: legacy_replace_setting)
         end
 
-        scenario 'Conform window apperead.' do
+        scenario 'Selecting another template replaces the title and description immediately' do
           visit_new_issue(user)
-          expect(page).to have_selector('div#template_area select#issue_template')
+          wait_for_ajax
+          expect(issue_description.value).to eq first_template.description
           second_target.select_option
           wait_for_ajax
-          expect(page).to have_selector('#issue_template_confirm_to_replace_dialog')
-          expect(issue_subject.value).not_to eq "#{first_template.issue_title} #{second_template.issue_title}"
-          expect(issue_description.value).not_to eq "#{first_template.description}\n\n#{second_template.description}"
+          expect(page).not_to have_selector('#issue_template_confirm_to_replace_dialog', visible: :all)
+          expect(issue_description.value).to eq second_template.description
+          expect(issue_subject.value).to eq second_template.issue_title
         end
+      end
+    end
 
-        scenario 'Conform window not apperead with using cookie.' do
-          visit_new_issue(user)
+    context 'Tracker without core fields' do
+      before { tracker.update!(core_fields: []) }
 
-          # set cookie
-          page.driver.browser.manage.add_cookie(name: 'issue_template_confirm_to_replace_hide_dialog', value: '1')
-          expect(page).to have_selector('div#template_area select#issue_template')
-          second_target.select_option
-          wait_for_ajax
-          expect(page).not_to have_selector('#issue_template_confirm_to_replace_dialog')
-        end
-
-        context 'Tracker without core_fields' do
-          background do
-            tracker.update!(core_fields: [])
-          end
-
-          scenario 'Select template and content is applied.' do
-            visit_new_issue(user)
-            page.driver.browser.manage.add_cookie(name: 'issue_template_confirm_to_replace_hide_dialog', value: '1')
-
-            first_target.select_option
-            wait_for_ajax
-            expect(issue_subject.value).to eq first_template.issue_title
-          end
-        end
+      scenario 'Apply the title without accessing a missing description field' do
+        visit_new_issue(user)
+        first_target.select_option
+        wait_for_ajax
+        expect(issue_subject.value).to eq first_template.issue_title
       end
     end
   end

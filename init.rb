@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+# Modified by Roger Gama on 2026-11-21: custom usability edition based on upstream 1.2.1. See CREDITS.md and CHANGELOG.md.
+
 # Redmine Issue Template Plugin
 #
 # This is a plugin for Redmine to generate and use issue templates
@@ -41,13 +43,13 @@ end
 
 Redmine::Plugin.register :redmine_issue_templates do
   begin
-    name 'Redmine Issue Templates plugin'
+    name 'Redmine Issue Templates — versão personalizada'
     author 'Agileware Inc.'
-    description 'Plugin to generate and use issue templates for each project to assist issue creation.'
-    version '1.2.1'
+    description 'Versão baseada na 1.2.1, com melhorias de usabilidade mantidas por Roger Gama.'
+    version '1.2.1.5'
     author_url 'https://agileware.jp/'
     requires_redmine version_or_higher: '4.0'
-    url 'https://github.com/agileware-jp/redmine_issue_templates'
+    url 'https://github.com/rogerlgama/redmine_issue_templates'
 
     settings partial: 'settings/redmine_issue_templates',
              default: {

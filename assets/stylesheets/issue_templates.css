@@ -1,3 +1,4 @@
+/*! Modified by Roger Gama on 2026-11-21: custom usability edition based on upstream 1.2.1. See CREDITS.md and CHANGELOG.md. */
 fieldset.issue {
     padding-top: 5px;
     padding-bottom: 5px;
@@ -188,7 +189,7 @@ select.issue_template {
     width: 240px;
 }
 
-.issue_template.icon.settings {
+.issue_template.icon.settings, .issue_template.icon-only.settings {
     background: url("../images/lamp.png") no-repeat 3px center;
 }
 
@@ -440,28 +441,7 @@ div.template_link_area label {
 }
 /*--------- for Template related Link --------*/
 
-.overwrite_confirm_btn {
-    margin-top: 10px;
-    display: inline-block;
-    position: relative;
-    width: 100px;
-    padding: 0.8em;
-    text-align: center;
-    text-decoration: none;
-    color: #1B1B1B;
-    background: #fff;
-    border:1px solid rgb(165, 164, 164);
-    border-radius: 6px;
-}
-
 /*--------- for Overwrite Confirmation --------*/
-.overwrite_confirm_btn:hover {
-     background: rgb(190, 187, 187);
-     color: #fff;
-     cursor: pointer;
-     text-decoration: none;
-}
-
 #template_area > p a {
     display: inline-block;
     margin-right: .85em;

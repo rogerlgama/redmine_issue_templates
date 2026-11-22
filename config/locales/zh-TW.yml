@@ -1,3 +1,4 @@
+# Modified by Roger Gama on 2026-11-21: custom usability edition based on upstream 1.2.1. See CREDITS.md and CHANGELOG.md.
 # Tranditional Chinese strings go here for Rails i18n
 zh-TW:
   issue_templates: "問題樣板"
@@ -34,15 +35,12 @@ zh-TW:
   erase_issue_subject_and_description: "清除主旨以及概述。"
   unused_tracker_at_this_project: "備註：這個追蹤標簽並沒有被指派給這個專案使用。必要的話請重新設定樣板"
   label_enabledshaing_help_message: "如果設定值為 True，這個樣板就可以分享給子專案使用（你還是得在子專案中把繼承而來的問題樣板啟用）。"
-  label_should_replaced: "取代標題以及描述"
-  label_should_replaced_help_message: "如果設定值為 True，當前的標題以及描述會被清除，且被樣板的文字所取代(預設是 False, 把文字附加在後面)。" 
   global_issue_templates: "全域問題樣板"
   no_issue_templates_for_this_redmine: "網站目前沒有全域的問題樣板！"
   only_admin_can_associate_global_template: "只有 Redmine 管理員可以在這個專案中關聯全域樣板。"
   text_no_tracker_enabled_for_global: "尚未定義追蹤標籤。\n請先分配模板適用的追蹤標籤。"
   display_and_filter_issue_templates_in_dialog: "預覽樣板內容"
   label_filter_template: "篩選樣板"
-  label_msg_confirm_to_replace: "確定要取代主旨和說明嗎？"
   label_apply_global_template_to_all_projects: "套用全域問題樣板到所有專案。"
   note_apply_global_template_to_all_projects_setting_enabled: "基於外掛設定，這個全域問題樣板被套用到所有專案。"
   project_list_associated_this_template: "專案列表：  （已套用 %{all} 個中的 %{applied} 個）"
@@ -56,7 +54,6 @@ zh-TW:
   orphaned_templates: "追蹤標籤中被孤立的樣板"
   orphaned_template: "追蹤標籤中被孤立的樣板"
   label_template_applied: "問題樣板已套用。你可以按「還原」連結來還原。"
-  label_hide_confirm_dialog_in_the_future: "未來直接覆寫，不再詢問。"
   label_template_for_note: "筆記樣板"
   label_use_template_when_edit: "編輯問題時使用樣板"
   note_template: "筆記樣板"

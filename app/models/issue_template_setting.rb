@@ -1,3 +1,4 @@
+# Modified by Roger Gama on 2026-11-21: custom usability edition based on upstream 1.2.1. See CREDITS.md and CHANGELOG.md.
 class IssueTemplateSetting < (defined?(ApplicationRecord) == 'constant' ? ApplicationRecord : ActiveRecord::Base)
   include Redmine::SafeAttributes
   belongs_to :project
@@ -5,7 +6,7 @@ class IssueTemplateSetting < (defined?(ApplicationRecord) == 'constant' ? Applic
   validates_uniqueness_of :project_id
   validates_presence_of :project_id
 
-  safe_attributes 'help_message', 'enabled', 'inherit_templates', 'should_replaced'
+  safe_attributes 'help_message', 'enabled', 'inherit_templates'
 
   scope :inherit_templates, -> { where(inherit_templates: true) }
 

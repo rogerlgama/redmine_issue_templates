@@ -1,4 +1,5 @@
-﻿# Danish strings go here for Rails i18n
+﻿# Modified by Roger Gama on 2026-11-21: custom usability edition based on upstream 1.2.1. See CREDITS.md and CHANGELOG.md.
+# Danish strings go here for Rails i18n
 da:
   issue_templates: Sagsskabeloner
   issue_template: Sagsskabelon
@@ -34,8 +35,6 @@ da:
   erase_issue_subject_and_description: "Tøm emne og beskrivelse."
   unused_tracker_at_this_project: "NB: Sagstypen anvendes ikke med projektet."
   label_enabledshaing_help_message: "Hvis valgt deles skabelonen med underliggende projekter. (Arv sagsskabeloner skal dog være valgt til på underprojekter.)"
-  label_should_replaced: "Erstat emne og beskrivelse"
-  label_should_replaced_help_message: "Hvis valgt erstattes emne og beskrivelse med skabelonen. Ellers tilføjes skabelonens indhold den eksisterende tekst."
   global_issue_templates: "Fælles sagsskabeloner"
   no_issue_templates_for_this_redmine: "Ingen fælles sagsskabeloner defineret."
   only_admin_can_associate_global_template: "Kun administratorer kan sammenkoble fælles sagsskabeloner med projekter."

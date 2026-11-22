@@ -1,3 +1,4 @@
+# Modified by Roger Gama on 2026-11-21: custom usability edition based on upstream 1.2.1. See CREDITS.md and CHANGELOG.md.
 # Italian strings go here for Rails i18n
 it:
   issue_templates: Modelli segnalazioni
@@ -34,8 +35,6 @@ it:
   erase_issue_subject_and_description: "Pulisci oggetto e descrizione."
   unused_tracker_at_this_project: "NOTA: Questo tracker non è abilitato per questo progetto. Per favore modifica le impostazioni del modello se necessario."
   label_enabledshaing_help_message: "Se abilitato, questo modello può essere condiviso con i sottoprogetti. (Devi anche abilitare nel sottoprogetto l'opzione Eredita modelli segnalazioni.)"
-  label_should_replaced: "Sostituisci oggetto e descrizione"
-  label_should_replaced_help_message: "Se abilitato, l'oggetto e la descrizione esistenti saranno sostituiti con il testo del modello.（Normalmente disattivato, i testi saranno accodati.)"
   global_issue_templates: "Modelli Segnalazioni Globali"
   no_issue_templates_for_this_redmine: "Nessun modello globale di segnalazione è definito per questo sito Redmine."
   only_admin_can_associate_global_template: "Solo un amministratore di Redmine può associare modelli globali a questo progetto."

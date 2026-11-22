@@ -1,3 +1,4 @@
+# Modified by Roger Gama on 2026-11-21: custom usability edition based on upstream 1.2.1. See CREDITS.md and CHANGELOG.md.
 # Spanish strings go here for Rails i18n
 # Translation by Andres Arias https://github.com/mrlocke
 es:
@@ -35,8 +36,6 @@ es:
   erase_issue_subject_and_description: "Borrar el Asunto y la Descripción."
   unused_tracker_at_this_project: "NOTA: Este Tipo de Petición no está definido para este proyecto. Por favor, cambie la configuración de la plantilla, si es necesario."
   label_enabledshaing_help_message: "Si está marcada, la plantilla podrá ser compartida con los sub-proyectos descendientes. (También debe ser activada la opción de heredar plantillas en los proyectos hijos.)"
-  label_should_replaced: "Reemplazar Asunto y Descripción"
-  label_should_replaced_help_message: "Si está habilitado, el Asunto y Descripción serán borrados y reemplazados con el texto de la plantilla. De lo contrario, serán añadidos. (Opción por defecto.)"
   global_issue_templates: "Plantillas de Peticiones Globales"
   no_issue_templates_for_this_redmine: "No hay plantillas globales definidas en este redmine."
   only_admin_can_associate_global_template: "Solamente el Administrador de Redmine puede asociar plantillas globales con esté proyecto."

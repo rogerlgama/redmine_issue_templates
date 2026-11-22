@@ -1,5 +1,7 @@
+# Modified by Roger Gama on 2026-11-21: custom usability edition based on upstream 1.2.1. See CREDITS.md and CHANGELOG.md.
 # Brazilian strings go here for Rails i18n
 pt-BR:
+  label_template_applied_automatically: "Modelo de tarefa aplicado."
   issue_templates: Modelos de tarefas
   issue_template: Modelo de tarefa
   issue_template_note: notas
@@ -34,15 +36,12 @@ pt-BR:
   erase_issue_subject_and_description: "Limpar assunto e descrição."
   unused_tracker_at_this_project: "NOTA: Este tipo não está habilitado para uso neste projeto. Por favor redefina as configurações do modelo se necessário."
   label_enabledshaing_help_message: "Se habilitado, este modelo pode ser compartilhado com projetos descendentes. (Você também deve ativar a opção de herdar modelos no projeto filho.)"
-  label_should_replaced: "Substituir assunto e descrição"
-  label_should_replaced_help_message: "Se habilitado assunto e descrição são excluídos e substituídos pelos textos do modelo. (Por padrão os textos são adicionados.)"
   global_issue_templates: "Modelos de Tarefa Globais"
   no_issue_templates_for_this_redmine: "Não há modelos de tarefa globais definidos neste redmine."
   only_admin_can_associate_global_template: "Somente administradores podem associar modelos globais a este projeto."
   text_no_tracker_enabled_for_global: "Nenhum tipo foi definido ainda.\nPor favor defina os tipos, pois os modelos são atribuídos a estes."
   display_and_filter_issue_templates_in_dialog: "Visualizar conteúdo do template"
   label_filter_template: "Filtrar modelos"
-  label_msg_confirm_to_replace: "Você quer substituir o assunto e a descrição?"
   label_apply_global_template_to_all_projects: "Aplica modelos de problemas globais a todos os projetos."
   note_apply_global_template_to_all_projects_setting_enabled: "Este modelo de problema global é aplicado a todos os projetos por configuração de plug-in."
   project_list_associated_this_template: "Lista de projetos:  (aplicado: %{applied} of %{all})"

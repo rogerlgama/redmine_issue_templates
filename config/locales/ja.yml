@@ -1,3 +1,4 @@
+# Modified by Roger Gama on 2026-11-21: custom usability edition based on upstream 1.2.1. See CREDITS.md and CHANGELOG.md.
 # Japanese translation
 ja:
   issue_templates: チケットテンプレート
@@ -34,8 +35,6 @@ ja:
   erase_issue_subject_and_description: "タイトルと詳細をクリア"
   unused_tracker_at_this_project: "このプロジェクトでは利用されていないトラッカーです。必要に応じて、トラッカーとテンプレートの関連付けを修正して下さい。"
   label_enabledshaing_help_message: "オプションをチェックすると、子プロジェクトでの利用を許可します。（子プロジェクト側での『テンプレートの継承』を設定した場合）"
-  label_should_replaced: "テンプレート読み込みの際に本文とタイトルを上書き"
-  label_should_replaced_help_message: "オプションをチェックすると、テンプレートを適用する際に、入力済みの本文とタイトルを上書きします。（デフォルトはOFFです）"
   global_issue_templates: "グローバル チケットテンプレート"
   no_issue_templates_for_this_redmine: "このRedmineにはグローバルチケットテンプレートは定義されていません。"
   no_note_templates_for_this_redmine: "このRedmineにはグローバルコメント用テンプレートは定義されていません。"
@@ -43,7 +42,6 @@ ja:
   text_no_tracker_enabled_for_global: "テンプレートはトラッカー毎に設定します。\nトラッカーの設定をお願いします。"
   display_and_filter_issue_templates_in_dialog: "テンプレートの内容を確認"
   label_filter_template: "テンプレートの絞り込み"
-  label_msg_confirm_to_replace: "説明と題名を上書きしてもよろしいですか？"
   label_apply_global_template_to_all_projects: "グローバルチケットテンプレートを全てのプロジェクトに適用"
   note_apply_global_template_to_all_projects_setting_enabled: "プラグイン設定によって、グローバルチケットテンプレートは全てのプロジェクトに適用されます"
   project_list_associated_this_template: "このテンプレートが利用可能なプロジェクト (全 %{all}プロジェクト中:  %{applied}プロジェクトが有効) "
@@ -58,7 +56,6 @@ ja:
   orphaned_templates: "トラッカーから孤立したテンプレート"
   orphaned_template: "トラッカーから孤立したテンプレート"
   label_template_applied: "テンプレートが適用されました。（元に戻す場合：「テンプレート適用前に戻す」をクリック）"
-  label_hide_confirm_dialog_in_the_future: "次回からは、この上書きの確認メッセージを表示しない"
   label_template_for_note: "コメント用テンプレート"
   label_use_template_when_edit: "チケットの編集時にもテンプレートを利用する"
   note_template: "コメント用テンプレート"

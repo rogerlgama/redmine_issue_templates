@@ -1,3 +1,4 @@
+# Modified by Roger Gama on 2026-11-21: custom usability edition based on upstream 1.2.1. See CREDITS.md and CHANGELOG.md.
 # Russian strings go here for Rails i18n
 ru:
   issue_templates: Шаблоны
@@ -34,8 +35,6 @@ ru:
   erase_issue_subject_and_description: "Очистить тему и описание задачи."
   unused_tracker_at_this_project: "ВНИМАНИЕ: Данный трекер не используется в текущем проекте. Пожалуйста перенастройте шаблон при необходимости."
   label_enabledshaing_help_message: "Если параметр установлен, данный шаблон может быть унаследован дочерними проектами. (Для работы данной функции необходимо включить наследование в настройках шаблонов дочернего проекта.)"
-  label_should_replaced: "Заменять тему и описание"
-  label_should_replaced_help_message: "Если параметр установлен, текст темы и описания будет очищен и заменен текстом из шаблона. （По умолчанию параметр отключен, и текст добавляется к существующему, а не заменяется.)"
   global_issue_templates: "Глобальные шаблоны задач"
   no_issue_templates_for_this_redmine: "Глобальные шаблоны задач, доступные для всех проектов Redmine, не настроены."
   only_admin_can_associate_global_template: "Подключить глобальные шаблоны задач к данному проекту может только администратор Redmine."

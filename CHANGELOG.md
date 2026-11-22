@@ -1,5 +1,55 @@
 ## Changelog
 
+Esta distribuição é uma edição personalizada mantida por [Roger Gama](https://github.com/rogerlgama),
+baseada na versão oficial 1.2.1. O histórico upstream é preservado abaixo das edições personalizadas.
+
+### Registro de publicação da edição 1.2.1.5 — 2026-11-21
+
+- Identificação no Redmine: “Redmine Issue Templates — versão personalizada”.
+- Autoria original e link da Agileware preservados; manutenção por Roger Gama identificada na descrição.
+- URL do plugin direcionada ao repositório desta edição.
+- README, créditos, notas de release e avisos de modificação consolidados.
+- Sem mudança funcional em relação ao pacote 1.2.1.5 previamente disponibilizado.
+
+### 1.2.1.5 (custom build, not an upstream release)
+
+* On a new-issue tracker change, clear subject and description if the refreshed
+  model selector is blank, even when the tracker has several non-default models.
+* Keep automatic loading when one model is selected as the default.
+* Preserve the 1.2.1.4 icon fixes and automatic replacement without confirmation.
+* Add regression tests and rebuild the distributed JavaScript.
+
+### 1.2.1.4 (custom build, not an upstream release)
+
+* Restore visible preview/apply icons under Redmine 6 by using icon-only,
+  following the upstream fix in https://github.com/agileware-jp/redmine_issue_templates/pull/116.
+* Cover local, inherited, global and note templates and related icon-only UI.
+* Preserve the 1.2.1.3 automatic replacement behavior without confirmation or Revert.
+* Add regression coverage for clearing, opening the popup and applying a template.
+
+### 1.2.1.3 (custom build, not an upstream release)
+
+* Remove the Revert link, listener, restore function and hidden value snapshots.
+* Update the applied-template message to omit revert instructions.
+* Preserve automatic replacement, no-template cleanup and the manual clear link.
+
+### 1.2.1.2 (custom build, not an upstream release)
+
+* Always replace template subject and description without confirmation.
+* Remove the replacement option from global and project settings, along with
+  the modal, its cookie handling, styles and unused translation messages.
+* Retain the no-template tracker-change cleanup on new issues, now automatic.
+* Preserve legacy database values for rollback; they no longer control behavior.
+* Include rebuilt JavaScript, updated tests and update/rollback instructions.
+
+### 1.2.1.1 (custom build, not an upstream release)
+
+* Add administrator-controlled global subject/description replacement without
+  overwriting saved project preferences.
+* Fix the no-template tracker-change replacement guard and confirm before
+  clearing content, respecting the existing overwrite confirmation preference.
+* Include compiled JavaScript and Portuguese update/rollback instructions.
+
 ### 1.2.0
 
 Bugfixes and assets management improvements. Many thanks to each of you for your contributions.

@@ -1,0 +1,27 @@
+VALIDACAO — Issue Templates 1.2.1.5 (versão personalizada)
+
+Base: pacote completo 1.2.1.4 obtido do arquivo persistido.
+
+Executado com sucesso:
+- Falha reproduzida por teste de regressão antes da alteração.
+- 29 testes JavaScript aprovados após a alteração.
+- Inclui múltiplos modelos sem padrão, modelo único sem padrão, vários modelos
+  com padrão local/global, limpeza no CKEditor, escopo da criação e demais
+  regressões de substituição/ícones/aplicação de modelos.
+- npm run build: novo JavaScript compilado incluído no pacote.
+- Traduções YAML válidas e integridade do ZIP completo conferida.
+- Arquivos da versão 1.2.1.4 preservados, incluindo as correções de ícones.
+- Nenhuma migration ou alteração de dependências de execução.
+
+Limites:
+- Testes de JavaScript executados com adaptadores DOM/HTTP simulados.
+- Não há uma instância Redmine/Ruby/Rails disponível para validação integrada.
+- Os testes RSpec não foram executados neste ambiente.
+- Aviso de build sobre eval pertence à rotina de watchers preexistente.
+
+Revisão de publicação — 2026-11-21:
+- 29 testes JavaScript reexecutados e aprovados.
+- Identificação/descrição e URL ajustadas; autor e author_url originais mantidos.
+- README e créditos de procedência incluídos, com histórico das melhorias.
+- Avisos de modificação adicionados aos fontes alterados; licença preservada.
+- Código funcional permanece o da versão 1.2.1.5 previamente disponibilizada.

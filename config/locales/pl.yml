@@ -1,3 +1,4 @@
+# Modified by Roger Gama on 2026-11-21: custom usability edition based on upstream 1.2.1. See CREDITS.md and CHANGELOG.md.
 # Polish strings go here for Rails i18n
 pl:
   issue_templates: Szablony zagadnień
@@ -34,8 +35,6 @@ pl:
   erase_issue_subject_and_description: "Czyść tytuł i tekst w opisie zagadnienia."
   unused_tracker_at_this_project: "INFO: Ten typ zagadnienia nie jest włączony dla tego projektu. Jeśli to konieczne proszę ponownie zdefiniować ustawienia projektu."
   label_enabledshaing_help_message: "Jeśli włączone, możliwe jest współdzielenie szablonu z podprojektami. (Musisz także włączyć szablony dziedziczone w podprojekcie.)"
-  label_should_replaced: "Nadpisuj tytuł i opis zagadnienia"
-  label_should_replaced_help_message: "Jeśli włączone, wpisany wcześniej tytuł i opis zagadnienia będą czyszczone i zastępowane tekstem z szablonu. (Domyślnie wyłączone, tekst jest dopisywany.)"
   global_issue_templates: "Globalne Szablony Zagadnień"
   no_issue_templates_for_this_redmine: "Brak zdefiniowanych globalnych szablonów zagadnień."
   only_admin_can_associate_global_template: "Tylko administrator może przypisywać globalne szablony do projektów."
